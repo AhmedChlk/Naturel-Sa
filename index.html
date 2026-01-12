@@ -22,19 +22,19 @@
     />
 
     <style>
-      /* --- 1. VARIABLES & RESET (Pour la maintenabilité) --- */
+      /* --- 1. VARIABLES & CONFIGURATION --- */
       :root {
-        /* Palette de couleurs */
-        --color-accent: #84a98c;       /* Vert Sauge Signature */
-        --color-text: #ffffff;         /* Blanc pur */
-        --color-text-soft: #e0e0e0;    /* Blanc cassé pour sous-titres */
+        /* Palette */
+        --color-accent: #84a98c; /* Vert Sauge */
+        --color-text: #ffffff; /* Blanc */
+        --color-text-soft: #e0e0e0; /* Gris clair */
 
-        /* Configuration du Verre (Glassmorphism) */
-        --glass-bg: rgba(20, 20, 20, 0.60); /* Plus sombre mais transparent */
-        --glass-border: rgba(255, 255, 255, 0.08); /* Bordure ultra fine */
-        --glass-blur: 20px;            /* Le secret est ici : un gros flou */
+        /* Glassmorphism (Effet Verre) */
+        --glass-bg: rgba(20, 20, 20, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glass-blur: 20px;
 
-        /* Espacement */
+        /* Rayons */
         --radius-card: 24px;
         --radius-btn: 12px;
       }
@@ -46,44 +46,43 @@
       }
 
       body {
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         color: var(--color-text);
-        height: 100vh;
+        /* Permet le scroll sur mobile si la hauteur dépasse */
+        min-height: 100vh;
         width: 100%;
-        overflow: hidden; /* Évite les ascenseurs inutiles */
         display: flex;
-        justify-content: center; /* Centre horizontalement */
-        align-items: center;     /* Centre verticalement */
+        justify-content: center;
+        align-items: center;
 
-        /* IMAGE DE FOND */
-        /* J'ai ajouté un 'overlay' sombre directement sur l'image pour le contraste global */
-        background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
-                    url("https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2200&auto=format&fit=crop");
+        /* Image de fond avec overlay sombre */
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+          url("https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2200&auto=format&fit=crop");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        /* Fixe le background pour qu'il ne bouge pas au scroll */
+        background-attachment: fixed;
       }
 
-      /* --- 2. LA CARTE (GLASSMORPHISM) --- */
+      /* --- 2. LA CARTE CENTRALE --- */
       .card {
         width: 100%;
-        max-width: 550px; /* Largeur idéale pour la lecture */
+        max-width: 550px;
         padding: 48px 40px;
+        margin: 20px; /* Marge de sécurité pour mobile */
 
-        /* L'effet de verre parfait */
         background-color: var(--glass-bg);
-        backdrop-filter: blur(var(--glass-blur)); /* Floute l'image derrière */
-        -webkit-backdrop-filter: blur(var(--glass-blur)); /* Support Safari */
+        backdrop-filter: blur(var(--glass-blur));
+        -webkit-backdrop-filter: blur(var(--glass-blur));
 
         border: 1px solid var(--glass-border);
         border-radius: var(--radius-card);
-
-        /* Ombre douce pour détacher la carte du fond */
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 
-        text-align: center; /* Centré pour l'élégance */
+        text-align: center;
 
-        /* Animation d'entrée fluide */
+        /* Animation d'apparition */
         opacity: 0;
         transform: translateY(20px);
         animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
@@ -91,7 +90,7 @@
 
       /* --- 3. TYPOGRAPHIE --- */
       .brand-title {
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         font-size: 14px;
         font-weight: 600;
         letter-spacing: 2px;
@@ -102,7 +101,7 @@
       }
 
       h1 {
-        font-family: 'Cormorant Garamond', serif;
+        font-family: "Cormorant Garamond", serif;
         font-size: 48px;
         line-height: 1.1;
         font-weight: 400;
@@ -125,7 +124,7 @@
         margin-right: auto;
       }
 
-      /* --- 4. LISTE DES LIENS (UI/UX) --- */
+      /* --- 4. LISTE DES LIENS --- */
       .links-container {
         display: flex;
         flex-direction: column;
@@ -135,7 +134,6 @@
       .btn-link {
         display: flex;
         align-items: center;
-        /* Fond très léger pour suggérer qu'on peut cliquer */
         background: rgba(255, 255, 255, 0.05);
         padding: 14px 20px;
         border-radius: var(--radius-btn);
@@ -143,14 +141,12 @@
         color: var(--color-text);
         border: 1px solid transparent;
         transition: all 0.3s ease;
-        group;
       }
 
-      /* Effet Hover (Survol) : C'est là que l'UX devient "Premium" */
       .btn-link:hover {
-        background: rgba(132, 169, 140, 0.15); /* Teinte verte subtile */
+        background: rgba(132, 169, 140, 0.15);
         border-color: rgba(132, 169, 140, 0.3);
-        transform: translateY(-2px); /* Petit effet de levitation */
+        transform: translateY(-2px);
       }
 
       .icon-box {
@@ -166,6 +162,8 @@
         flex-direction: column;
         align-items: flex-start;
         margin-left: 12px;
+        /* Assure que le texte ne dépasse pas si le nom est long */
+        overflow: hidden;
       }
 
       .label {
@@ -179,28 +177,30 @@
       .value {
         font-size: 15px;
         font-weight: 500;
+        white-space: nowrap;
       }
 
-      /* --- 5. PIED DE PAGE --- */
+      /* --- 5. FOOTER --- */
       .footer-note {
         margin-top: 32px;
-        font-family: 'Cormorant Garamond', serif;
+        font-family: "Cormorant Garamond", serif;
         font-style: italic;
         font-size: 16px;
         opacity: 0.8;
       }
 
-      /* --- 6. RESPONSIVE (Mobile) --- */
+      /* --- 6. MEDIA QUERIES (Mobile) --- */
       @media (max-width: 600px) {
         body {
-            /* Sur mobile, on laisse l'image respirer, on permet le scroll si l'écran est petit */
-            height: auto;
-            min-height: 100vh;
-            padding: 20px;
+          /* Permet au contenu de s'étirer */
+          height: auto;
+          padding: 10px 0;
         }
 
         .card {
           padding: 32px 24px;
+          margin: 10px;
+          width: calc(100% - 20px);
         }
 
         h1 {
@@ -208,11 +208,10 @@
         }
 
         .btn-link {
-            padding: 12px 16px;
+          padding: 12px 16px;
         }
       }
 
-      /* Animation keyframes */
       @keyframes fadeUp {
         to {
           opacity: 1;
@@ -264,6 +263,18 @@
           <div class="icon-box"><i class="fa-brands fa-tiktok"></i></div>
           <div class="text-content">
             <span class="label">TikTok</span>
+            <span class="value">@naturelsa</span>
+          </div>
+        </a>
+
+        <a
+          href="https://www.snapchat.com/@naturelsa?locale=fr_FR&sid=c431a8bb7a804854860a3a79948e65fe&share_id=ijTktWIaTECp64jBu85EaQ&invite_id=BMDQewEb"
+          class="btn-link"
+          target="_blank"
+        >
+          <div class="icon-box"><i class="fa-brands fa-snapchat"></i></div>
+          <div class="text-content">
+            <span class="label">Snapchat</span>
             <span class="value">@naturelsa</span>
           </div>
         </a>
