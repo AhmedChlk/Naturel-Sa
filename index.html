@@ -3,322 +3,282 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Naturel & Sa - Bientôt de retour</title>
+    <title>Naturel & Sa — Bientôt de retour</title>
+    <meta
+      name="description"
+      content="Naturel & Sa revient bientôt. Site en rénovation."
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&family=Dancing+Script:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,600&family=Montserrat:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
 
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
 
     <style>
-      /* =========================================
-           RESET & VARIABLES
-           ========================================= */
+      /* --- 1. VARIABLES & RESET (Pour la maintenabilité) --- */
       :root {
-        --color-primary: #84a98c; /* Vert Sauge */
-        --color-text: #ffffff;
-        --color-text-muted: #e0e0e0;
-        --font-serif: "Cormorant Garamond", serif;
-        --font-sans: "Montserrat", sans-serif;
-        --font-script: "Dancing Script", cursive;
+        /* Palette de couleurs */
+        --color-accent: #84a98c;       /* Vert Sauge Signature */
+        --color-text: #ffffff;         /* Blanc pur */
+        --color-text-soft: #e0e0e0;    /* Blanc cassé pour sous-titres */
+
+        /* Configuration du Verre (Glassmorphism) */
+        --glass-bg: rgba(20, 20, 20, 0.60); /* Plus sombre mais transparent */
+        --glass-border: rgba(255, 255, 255, 0.08); /* Bordure ultra fine */
+        --glass-blur: 20px;            /* Le secret est ici : un gros flou */
+
+        /* Espacement */
+        --radius-card: 24px;
+        --radius-btn: 12px;
       }
 
       * {
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
       }
 
       body {
-        font-family: var(--font-sans);
+        font-family: 'Montserrat', sans-serif;
+        color: var(--color-text);
         height: 100vh;
         width: 100%;
-        overflow: hidden; /* Empêche le scroll inutile */
+        overflow: hidden; /* Évite les ascenseurs inutiles */
         display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #2f3e46;
-      }
+        justify-content: center; /* Centre horizontalement */
+        align-items: center;     /* Centre verticalement */
 
-      /* =========================================
-           BACKGROUND & OVERLAY
-           ========================================= */
-      .bg-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-      }
-
-      .bg-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        /* Une image douce de nature/spa */
-        background-image: url("https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2000&auto=format&fit=crop");
-        background-position: center;
+        /* IMAGE DE FOND */
+        /* J'ai ajouté un 'overlay' sombre directement sur l'image pour le contraste global */
+        background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
+                    url("https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2200&auto=format&fit=crop");
         background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
 
-      .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
+      /* --- 2. LA CARTE (GLASSMORPHISM) --- */
+      .card {
         width: 100%;
-        height: 100%;
-        /* Dégradé sombre pour la lisibilité du texte blanc */
-        background: linear-gradient(
-          135deg,
-          rgba(47, 62, 70, 0.9) 0%,
-          rgba(47, 62, 70, 0.7) 100%
-        );
+        max-width: 550px; /* Largeur idéale pour la lecture */
+        padding: 48px 40px;
+
+        /* L'effet de verre parfait */
+        background-color: var(--glass-bg);
+        backdrop-filter: blur(var(--glass-blur)); /* Floute l'image derrière */
+        -webkit-backdrop-filter: blur(var(--glass-blur)); /* Support Safari */
+
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-card);
+
+        /* Ombre douce pour détacher la carte du fond */
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+        text-align: center; /* Centré pour l'élégance */
+
+        /* Animation d'entrée fluide */
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
       }
 
-      /* =========================================
-           CONTENU CENTRAL
-           ========================================= */
-      .main-container {
-        position: relative;
-        z-index: 10;
-        text-align: center;
-        padding: 2rem;
-        max-width: 600px;
-        width: 100%;
-        animation: fadeIn 1.2s ease-out;
-      }
-
-      /* Logo */
-      .brand-logo {
-        font-family: var(--font-serif);
-        font-size: 3rem;
-        color: var(--color-text);
-        margin-bottom: 2rem;
-        letter-spacing: 2px;
+      /* --- 3. TYPOGRAPHIE --- */
+      .brand-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
         font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--color-accent);
+        margin-bottom: 24px;
+        display: block;
       }
 
-      .brand-logo span {
-        font-family: var(--font-script);
-        color: var(--color-primary);
-        font-size: 3.5rem;
-        font-weight: 400;
-        margin: 0 5px;
-      }
-
-      /* Titres */
       h1 {
-        font-family: var(--font-serif);
-        font-size: 3rem;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 48px;
         line-height: 1.1;
         font-weight: 400;
-        color: var(--color-text);
-        margin-bottom: 1.5rem;
+        margin-bottom: 20px;
       }
 
-      h1 i {
+      h1 span {
         font-style: italic;
-        color: var(--color-primary);
+        color: var(--color-accent);
       }
 
-      .subtitle {
-        font-family: var(--font-sans);
-        font-size: 1.1rem;
+      .description {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--color-text-soft);
+        margin-bottom: 32px;
         font-weight: 300;
-        color: var(--color-text-muted);
-        margin-bottom: 3rem;
-        letter-spacing: 1px;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      /* =========================================
-           CARTE DE CONTACT (GLASSMORPHISM)
-           ========================================= */
-      .contact-card {
-        background: rgba(255, 255, 255, 0.08); /* Transparence */
-        backdrop-filter: blur(12px); /* Effet flou derrière */
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.15); /* Bordure subtile */
-        padding: 2.5rem;
-        border-radius: 16px;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-        text-align: left;
-      }
-
-      .contact-intro {
-        font-family: var(--font-serif);
-        font-size: 1.2rem;
-        color: var(--color-text);
-        margin-bottom: 1.5rem;
-        text-align: center;
-        font-style: italic;
-      }
-
-      /* Liste des liens */
-      .contact-list {
-        list-style: none;
+      /* --- 4. LISTE DES LIENS (UI/UX) --- */
+      .links-container {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 14px;
       }
 
-      .contact-link {
+      .btn-link {
         display: flex;
         align-items: center;
-        text-decoration: none;
-        color: white;
-        padding: 12px 15px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
+        /* Fond très léger pour suggérer qu'on peut cliquer */
         background: rgba(255, 255, 255, 0.05);
+        padding: 14px 20px;
+        border-radius: var(--radius-btn);
+        text-decoration: none;
+        color: var(--color-text);
         border: 1px solid transparent;
+        transition: all 0.3s ease;
+        group;
       }
 
-      .contact-link:hover {
-        background: rgba(132, 169, 140, 0.2); /* Vert Sauge transparent */
-        border-color: var(--color-primary);
-        transform: translateX(5px);
+      /* Effet Hover (Survol) : C'est là que l'UX devient "Premium" */
+      .btn-link:hover {
+        background: rgba(132, 169, 140, 0.15); /* Teinte verte subtile */
+        border-color: rgba(132, 169, 140, 0.3);
+        transform: translateY(-2px); /* Petit effet de levitation */
       }
 
       .icon-box {
-        width: 35px;
-        height: 35px;
+        width: 32px;
+        font-size: 20px;
+        color: var(--color-accent);
         display: flex;
-        align-items: center;
         justify-content: center;
-        margin-right: 15px;
-        font-size: 1.3rem;
-        color: var(--color-primary);
       }
 
-      .link-text {
-        font-size: 1rem;
-        font-weight: 400;
-        letter-spacing: 0.5px;
+      .text-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 12px;
       }
 
-      /* =========================================
-           FOOTER
-           ========================================= */
-      .footer-message {
-        margin-top: 3rem;
-        font-family: var(--font-script);
-        font-size: 1.8rem;
-        color: var(--color-text-muted);
-        opacity: 0.9;
-        animation: float 4s ease-in-out infinite;
+      .label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.7;
+        margin-bottom: 2px;
       }
 
-      /* =========================================
-           ANIMATIONS & RESPONSIVE
-           ========================================= */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
+      .value {
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      /* --- 5. PIED DE PAGE --- */
+      .footer-note {
+        margin-top: 32px;
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 16px;
+        opacity: 0.8;
+      }
+
+      /* --- 6. RESPONSIVE (Mobile) --- */
+      @media (max-width: 600px) {
+        body {
+            /* Sur mobile, on laisse l'image respirer, on permet le scroll si l'écran est petit */
+            height: auto;
+            min-height: 100vh;
+            padding: 20px;
         }
+
+        .card {
+          padding: 32px 24px;
+        }
+
+        h1 {
+          font-size: 36px;
+        }
+
+        .btn-link {
+            padding: 12px 16px;
+        }
+      }
+
+      /* Animation keyframes */
+      @keyframes fadeUp {
         to {
           opacity: 1;
           transform: translateY(0);
         }
       }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-5px);
-        }
-      }
-
-      /* Ajustements Mobile */
-      @media (max-width: 768px) {
-        .brand-logo {
-          font-size: 2.5rem;
-        }
-        h1 {
-          font-size: 2.2rem;
-        }
-        .contact-card {
-          padding: 1.5rem;
-        }
-        .link-text {
-          font-size: 0.9rem;
-        }
-        .footer-message {
-          font-size: 1.5rem;
-        }
-      }
     </style>
   </head>
   <body>
-    <div class="bg-container">
-      <div class="bg-image"></div>
-      <div class="overlay"></div>
-    </div>
-
-    <main class="main-container">
-      <div class="brand-logo">Naturel <span>&</span> Sa</div>
+    <main class="card">
+      <span class="brand-title">Naturel & Sa</span>
 
       <h1>
-        Natureletsa se refait<br />
-        <i>une beauté !</i> 🌿
+        On se refait<br />
+        <span>une beauté !</span> 🌿
       </h1>
-      <p class="subtitle">Notre site est actuellement en rénovation.</p>
 
-      <div class="contact-card">
-        <p class="contact-intro">
-          En attendant, pour toute commande ou question, contactez-moi
-          directement ici :
-        </p>
+      <p class="description">
+        Notre site est actuellement en rénovation pour mieux vous servir. En
+        attendant, passez commande ou posez vos questions directement ici :
+      </p>
 
-        <ul class="contact-list">
-          <li>
-            <a href="https://wa.me/33XXXXXXXXX" class="contact-link">
-              <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-              <span class="link-text">+33 XX XX XX XX XX</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://instagram.com/natureletsa"
-              target="_blank"
-              class="contact-link"
-            >
-              <div class="icon-box"><i class="fab fa-instagram"></i></div>
-              <span class="link-text">@natureletsa</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://tiktok.com/@natureletsa"
-              target="_blank"
-              class="contact-link"
-            >
-              <div class="icon-box"><i class="fab fa-tiktok"></i></div>
-              <span class="link-text">@natureletsa</span>
-            </a>
-          </li>
-          <li>
-            <a href="mailto:contact@natureletsa.fr" class="contact-link">
-              <div class="icon-box"><i class="far fa-envelope"></i></div>
-              <span class="link-text">contact@natureletsa.fr</span>
-            </a>
-          </li>
-        </ul>
+      <div class="links-container">
+        <a href="https://wa.me/33761608598" class="btn-link" target="_blank">
+          <div class="icon-box"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="text-content">
+            <span class="label">WhatsApp</span>
+            <span class="value">+33 7 61 60 85 98</span>
+          </div>
+        </a>
+
+        <a
+          href="https://www.instagram.com/naturelsaaaa/"
+          class="btn-link"
+          target="_blank"
+        >
+          <div class="icon-box"><i class="fa-brands fa-instagram"></i></div>
+          <div class="text-content">
+            <span class="label">Instagram</span>
+            <span class="value">@naturelsaaaa</span>
+          </div>
+        </a>
+
+        <a
+          href="https://www.tiktok.com/@naturelsa"
+          class="btn-link"
+          target="_blank"
+        >
+          <div class="icon-box"><i class="fa-brands fa-tiktok"></i></div>
+          <div class="text-content">
+            <span class="label">TikTok</span>
+            <span class="value">@naturelsa</span>
+          </div>
+        </a>
+
+        <a href="mailto:contact@natureletsa.fr" class="btn-link">
+          <div class="icon-box"><i class="fa-regular fa-envelope"></i></div>
+          <div class="text-content">
+            <span class="label">Email</span>
+            <span class="value">contact@natureletsa.fr</span>
+          </div>
+        </a>
       </div>
 
-      <div class="footer-message">
-        Merci pour votre patience, on revient très vite ! 🌸
+      <div class="footer-note">
+        Merci pour votre patience & votre confiance 🌸
       </div>
     </main>
   </body>
