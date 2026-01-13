@@ -30,6 +30,12 @@
     />
 
     <style>
+      /* Chargement de la police locale */
+      @font-face {
+        font-family: "Dry Brush";
+        src: url("fonts/dry_brush/Dry Brush.ttf") format("truetype");
+        font-display: swap;
+      }
       /* =========================
          Design tokens
       ========================== */
@@ -138,21 +144,16 @@
         object-fit: contain;
         filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
       }
-
       .brand-title {
-        font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto,
-          Arial, sans-serif;
-        font-size: 26px;
-        font-weight: 700;
-        letter-spacing: 4px;
-        text-transform: uppercase;
+        font-family: "Dry Brush", cursive; /* On utilise la nouvelle police */
+        font-size: 32px; /* Ajusté car les polices manuscrites paraissent souvent plus petites */
+        font-weight: normal;
+        letter-spacing: 1px;
         color: var(--color-accent);
         text-align: center;
-
-        /* même intention visuelle */
-        padding-right: 40px;
+        text-transform: uppercase;
+        padding-right: 60px;
       }
-
       h1 {
         margin: 0 0 var(--space-3);
         font-family: "Cormorant Garamond", serif;
